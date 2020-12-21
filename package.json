@@ -8,9 +8,9 @@
     "server": "ts-node src/server.ts",
     "build-client": "rm dist/public/ -rf && cd client && npm run build",
     "build": "rm dist -rf && tsc --sourcemap false && npm run build-client",
-    "start": " tsc && electron-forge start",
-    "package": "npm build && electron-forge package",
-    "make": "npm build && electron-forge make",
+    "start": "tsc && electron-forge start",
+    "package": "npm run build && electron-forge package",
+    "make": "npm run build && electron-forge make",
     "demo-data": "ts-node src/setup/data.ts",
     "lint": "tslint --project ."
   },
