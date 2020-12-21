@@ -1,6 +1,6 @@
 import { Transaction } from "./transaction";
 
-export default interface Customer {
+export interface Customer {
   id: number;
   firstname: string;
   lastname: string;

@@ -1,13 +1,13 @@
 import { JsonDB } from 'node-json-db';
 import { Config } from 'node-json-db/dist/lib/JsonDBConfig';
-import Article from '../models/article';
-import Customer from '../models/customer';
+import { Article } from '../models/article';
+import { Customer } from '../models/customer';
 import { CartItem, Transaction } from '../models/transaction';
 
 export class DatabaseAdapter {
   private db: JsonDB;
   constructor() {
-    this.db = new JsonDB(new Config("kiosk.json", true, true));
+    this.db = new JsonDB(new Config("kiosk.json", true, false));
   }
 
   // Articles
