@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "build-client": "rm dist/public/ -rf && cd client && npm run build",
-    "build": "rm dist -rf && tsc && npm run build-client",
+    "build": "rm dist -rf && tsc --sourcemap false && npm run build-client",
     "client": "cd client && npm start",
     "start": "tsc && electron dist/index.js",
     "demo-data": "ts-node src/setup/data.ts",
