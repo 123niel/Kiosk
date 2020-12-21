@@ -4,7 +4,8 @@
   "jsRules": {},
   "rules": {
     "no-console": false,
-    "semicolon": true
+    "semicolon": true,
+    "quotemark": [true, "single", "avoid-escape", "avoid-template"]
   },
   "rulesDirectory": []
 }
