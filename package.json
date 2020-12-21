@@ -1,6 +1,6 @@
 {
   "name": "kiosk",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Kisosk mit Electron, Express und Angular",
   "main": "dist/index.js",
   "scripts": {
