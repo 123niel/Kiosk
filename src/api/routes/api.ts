@@ -5,16 +5,19 @@ import { articleRouter } from './article';
 import { customerRouter } from './customer';
 import { actionRouter } from './action';
 
-const db = new DatabaseAdapter();
+export const apiRouter = () => {
 
-const apiRouter = express.Router();
+  const db = new DatabaseAdapter();
 
-apiRouter.get('/', (req, res) => {
-  res.json({ status: 'API is Working' });
-});
+  const router = express.Router();
 
-apiRouter.use('/article', articleRouter(db));
-apiRouter.use('/customer', customerRouter(db));
-apiRouter.use('/action', actionRouter(db));
+  router.get('/', (req, res) => {
+    res.json({ status: 'API is Working' });
+  });
 
-export default apiRouter;
+  router.use('/article', articleRouter(db));
+  router.use('/customer', customerRouter(db));
+  router.use('/action', actionRouter(db));
+
+  return router;
+};

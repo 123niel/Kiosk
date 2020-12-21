@@ -2,7 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
-import apiRouter from './routes/api';
+import { apiRouter } from './routes/api';
 
 export class ExpressApp {
   public app: express.Application;
@@ -14,7 +14,7 @@ export class ExpressApp {
     this.app.use(bodyParser.json());
     this.app.use(cors());
 
-    this.app.use('/api', apiRouter);
+    this.app.use('/api', apiRouter());
   }
 
   public start(port: any) {
