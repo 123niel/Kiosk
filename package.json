@@ -4,7 +4,8 @@
   "description": "",
   "main": "src/index.ts",
   "scripts": {
-    "build-client": "rm dist/public/ -rf && cd client && npm run build && mv dist/kiosk ../dist/public",
+    "build-client": "rm dist/public/ -rf && cd client && npm run build",
+    "build": "rm dist -rf && tsc && npm run build-client",
     "dev-client": "cd client && npm start",
     "start": "tsc && electron dist/index.js"
   },
@@ -19,8 +20,8 @@
   },
   "devDependencies": {
     "@types/express": "^4.17.9",
-    "electron": "^11.0.5",
+    "electron": "^11.1.0",
     "tslint": "^6.1.3",
-    "typescript": "^4.1.2"
+    "typescript": "^4.1.3"
   }
 }
