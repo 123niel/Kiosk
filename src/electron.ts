@@ -9,7 +9,13 @@ if (require('electron-squirrel-startup')) {
 let mainWindow: any;
 
 function createWindow() {
-  mainWindow = new BrowserWindow({ width: 800, height: 600 });
+  mainWindow = new BrowserWindow({
+    width: 800,
+    height: 600,
+    webPreferences: {
+      contextIsolation: true
+    }
+  });
 
   mainWindow.loadURL(path.join(__dirname, 'public/index.html'));
 
