@@ -1,0 +1,10 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <a mat-button [routerLink]="'/'" class="title">Kiosk</a>
+    <a mat-button [routerLink]="'/customer'"> Teilnehmer </a>
+    <a mat-button [routerLink]="'/article'"> Artikel </a>
+  </mat-toolbar-row>
+</mat-toolbar>
+<div class="content">
+  <router-outlet></router-outlet>
+</div>

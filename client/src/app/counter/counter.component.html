@@ -1,0 +1,16 @@
+<div class="counter">
+  <app-customer-picker [clearEvent]="clearEventSubjet.asObservable()"></app-customer-picker>
+
+  <div *ngIf="selectedCustomer">
+    <app-keyvalues [sum]="cartSum$ | async" [credit]="credit$ | async">
+    </app-keyvalues>
+  </div>
+
+  <div class="shelf">
+    <app-shelf></app-shelf>
+  </div>
+
+  <app-cart></app-cart>
+
+  <button mat-raised-button color="primary" (click)="submit()">Buchen</button>
+</div>

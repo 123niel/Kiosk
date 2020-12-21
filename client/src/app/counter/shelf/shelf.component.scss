@@ -1,0 +1,19 @@
+.shelf {
+  display: grid;
+  grid-gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+button {
+  width: 100%;
+  margin-bottom: 0.5em;
+}
+
+h2 {
+  text-align: center;
+}
+
+.name {
+  display: block;
+  height: 20px;
+}

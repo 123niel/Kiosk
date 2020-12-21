@@ -1,0 +1,14 @@
+<div class="item">
+  <div class="text">
+    <span class="quantity">{{ item.quantity }}x</span>
+    <span> {{ articleDesc(item.article) }}</span>
+  </div>
+  <div class="buttons">
+    <button mat-icon-button color="secondary" (click)="addClick()">
+      <mat-icon>add</mat-icon>
+    </button>
+    <button mat-icon-button small color="secondary" (click)="removeClick()">
+      <mat-icon>remove</mat-icon>
+    </button>
+  </div>
+</div>

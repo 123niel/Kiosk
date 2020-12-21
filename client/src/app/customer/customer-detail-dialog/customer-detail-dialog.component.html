@@ -1,0 +1,38 @@
+<h1 mat-dialog-title>{{ data.firstname + ' ' + data.lastname }}</h1>
+<div mat-dialog-content>
+  <table mat-table [dataSource]="data.transactions">
+    <ng-container matColumnDef="time">
+      <th mat-header-cell *matHeaderCellDef>Zeit</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.time | date: 'short':'null':'de' }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="deposit">
+      <th mat-header-cell *matHeaderCellDef>Einzahlung</th>
+      <td mat-cell *matCellDef="let element">
+        {{ element.deposit | currency  }}
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="cart">
+      <th mat-header-cell *matHeaderCellDef>Einkauf</th>
+      <td mat-cell *matCellDef="let element">
+        <span class="with-newlines">{{ cartSummary(element.cart) }}</span>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="sum">
+      <th mat-header-cell *matHeaderCellDef>Summe</th>
+      <td mat-cell *matCellDef="let element">
+        {{transactionSum(element) | currency}}
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedCols"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedCols"></tr>
+  </table>
+</div>
+<div mat-mat-dialog-actions>
+  <button mat-button (click)="close()">Schließen</button>
+</div>

@@ -1,0 +1,18 @@
+.item {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+
+
+.text {
+  align-items: center;
+  display: inline-flex;
+}
+
+.quantity {
+  justify-self: right;
+  margin-right: .25em;
+}

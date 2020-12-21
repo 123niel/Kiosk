@@ -1,0 +1,9 @@
+<mat-card class="cart">
+  <mat-card-title class="mat-h2">Einkaufskorb ({{ cartSum$ | async | currency }})</mat-card-title>
+  <div class="items">
+    <div *ngFor="let item of cart$ | async">
+      <app-cart-item [item]="item" (changeQuantity)="onQuantityChange($event)">
+      </app-cart-item>
+    </div>
+  </div>
+</mat-card>

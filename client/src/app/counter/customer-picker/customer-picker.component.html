@@ -1,0 +1,15 @@
+<div class="picker">
+  <mat-form-field>
+    <input type="text" matInput placeholder="Teilnehmer" aria-label="Teilnehmer" [matAutocomplete]="auto"
+      [formControl]="customerCtrl" />
+    <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+      <mat-option *ngFor="let item of filteredOptions | async" [value]="item">
+        {{ item }}
+      </mat-option>
+    </mat-autocomplete>
+    <button *ngIf="customerCtrl.value" mat-button (click)="clearButtonClick()" matSuffix mat-icon-button
+      aria-label="clear">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+</div>

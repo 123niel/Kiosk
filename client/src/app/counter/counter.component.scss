@@ -1,0 +1,32 @@
+.counter {
+  height: 80%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr auto;
+  grid-template-areas:
+    "picker values submit"
+    "shelf shelf cart";
+  grid-gap: 1em;
+}
+
+app-keyvalues {
+  grid-area: values;
+}
+
+app-customer-picker {
+  grid-area: picker;
+}
+
+button {
+  grid-area: submit;
+}
+
+.shelf {
+  grid-area: shelf;
+  height: 100%;
+}
+
+app-cart {
+  grid-area: cart;
+  height: 100%;
+}
