@@ -1,0 +1,99 @@
+{
+  "customers": [
+    {
+      "firstname": "Max",
+      "lastname": "Mustermann"
+    },
+    {
+      "firstname": "Peter",
+      "lastname": "Test"
+    }
+  ],
+  "articles": [
+    {
+      "name": "Sprudel",
+      "price": 100,
+      "category": "Getränke"
+    },
+    {
+      "name": "Apfel",
+      "price": 150,
+      "category": "Getränke"
+    },
+    {
+      "name": "Zitrone",
+      "price": 150,
+      "category": "Getränke"
+    },
+    {
+      "name": "Orange",
+      "price": 150,
+      "category": "Getränke"
+    },
+    {
+      "name": "Pfand zurück",
+      "price": -50,
+      "category": "Getränke"
+    },
+    {
+      "name": "Snickers",
+      "price": 80,
+      "category": "Süßigkeiten"
+    },
+    {
+      "name": "Mars",
+      "price": 80,
+      "category": "Süßigkeiten"
+    },
+    {
+      "name": "Twix",
+      "price": 80,
+      "category": "Süßigkeiten"
+    },
+    {
+      "name": "Knoppers",
+      "price": 70,
+      "category": "Süßigkeiten"
+    },
+    {
+      "name": "Erdnüsse",
+      "price": 50,
+      "category": "Süßigkeiten"
+    },
+    {
+      "name": "Lasso",
+      "price": 50,
+      "category": "Süßigkeiten"
+    },
+    {
+      "name": "Mix (6)",
+      "price": 50,
+      "category": "Süßigkeiten"
+    },
+    {
+      "name": "Wassereis",
+      "price": 10,
+      "category": "Süßigkeiten"
+    },
+    {
+      "name": "Chips",
+      "price": 80,
+      "category": "Süßigkeiten"
+    },
+    {
+      "name": "Flipps",
+      "price": 70,
+      "category": "Süßigkeiten"
+    },
+    {
+      "name": "Postkarte",
+      "price": 80,
+      "category": "Sonstiges"
+    },
+    {
+      "name": "Breifmarke",
+      "price": 45,
+      "category": "Sonstiges"
+    }
+  ]
+}
