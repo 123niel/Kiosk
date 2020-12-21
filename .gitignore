@@ -2,3 +2,6 @@ node_modules
 kiosk.json
 dist
 .vscode
+yarn-error.log
+
+out/
