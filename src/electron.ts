@@ -1,5 +1,6 @@
 import { app, BrowserWindow } from 'electron';
 import path from 'path';
+import url from 'url';
 
 // tslint:disable-next-line: no-var-requires
 if (require('electron-squirrel-startup')) {
@@ -17,7 +18,10 @@ function createWindow() {
     }
   });
 
-  mainWindow.loadURL(path.join(__dirname, 'public/index.html'));
+  mainWindow.loadURL(url.format({
+    pathname: path.join(__dirname, 'public/index.html'),
+    protocol: 'file:'
+  }));
 
   mainWindow.on('closed', () => {
     mainWindow = null;
