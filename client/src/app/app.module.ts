@@ -10,13 +10,13 @@ import { ArticleModule } from './article/article.module';
 import { CounterModule } from './counter/counter.module';
 import { CustomerModule } from './customer/customer.module';
 import { MaterialModule } from './shared/material.module';
-import { environment } from '../environments/environment';
+import { ImportExportComponent } from './import-export/import-export.component';
 
 
 registerLocaleData(localeDe);
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ImportExportComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

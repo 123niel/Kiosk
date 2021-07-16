@@ -1,0 +1,33 @@
+<h1>Datenverwaltung</h1>
+
+<mat-accordion>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>Export</mat-panel-title>
+            <mat-panel-description>Daten in eine Excel Datei exportieren</mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>
+            Achtung: Es werden nur die aktuellen Kontostände gespeichert, nicht alle Transaktionen!
+        </p>
+        <button mat-raised-button color="primary" (click)="export()">
+            Exportieren
+        </button>
+    </mat-expansion-panel>
+    <mat-expansion-panel>
+        <mat-expansion-panel-header>
+            <mat-panel-title>Import</mat-panel-title>
+            <mat-panel-description>Daten aus einer Excel Datei importieren</mat-panel-description>
+        </mat-expansion-panel-header>
+        <p>
+            Achtung: durch den Click auf den unteren Button werden alle Daten gelöscht und aus der Excel Datei neu
+            importiert!
+        </p>
+        <p>
+            Tipp: Die Datei muss im richtigen Format und an der richtigen Stelle liegen. Am besten ist zuerst
+            exportieren, dann bearbeiten und importieren.
+        </p>
+        <button mat-raised-button color="primary" (click)="import()">
+            Importieren
+        </button>
+    </mat-expansion-panel>
+</mat-accordion>

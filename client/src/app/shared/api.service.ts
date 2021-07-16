@@ -77,4 +77,12 @@ export class ApiService {
       { headers: this.headers }
     );
   }
+
+  export() {
+    return this.http.get(this.apiUrl + '/excel/export')
+  }
+
+  import(): Observable<any> {
+    return this.http.get(this.apiUrl + '/excel/import')
+  }
 }

@@ -4,6 +4,7 @@ import { DatabaseAdapter } from '../../dataproviders/database-adapter';
 import { articleRouter } from './article';
 import { customerRouter } from './customer';
 import { actionRouter } from './action';
+import { excelRouter } from './excel';
 
 export const apiRouter = () => {
 
@@ -18,6 +19,7 @@ export const apiRouter = () => {
   router.use('/article', articleRouter(db));
   router.use('/customer', customerRouter(db));
   router.use('/action', actionRouter(db));
+  router.use('/excel', excelRouter(db));
 
   return router;
 };

@@ -12,5 +12,7 @@
 
   <app-cart></app-cart>
 
-  <button mat-raised-button color="primary" (click)="submit()">Buchen</button>
+  <button mat-raised-button [color]="(overdrawn$ | async) ? 'warn' : 'primary'" (click)="submit()">
+    {{(overdrawn$ | async) ? 'Überzogen' : 'Buchen'}}
+  </button>
 </div>

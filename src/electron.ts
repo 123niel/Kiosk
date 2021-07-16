@@ -7,7 +7,7 @@ if (require('electron-squirrel-startup')) {
   app.quit();
 }
 
-let mainWindow: any;
+let mainWindow: BrowserWindow | null;
 
 function createWindow() {
   mainWindow = new BrowserWindow({
@@ -18,6 +18,8 @@ function createWindow() {
     }
   });
 
+  mainWindow.setMenu(null)
+
   mainWindow.loadURL(url.format({
     pathname: path.join(__dirname, 'public/index.html'),
     protocol: 'file:'
@@ -26,6 +28,7 @@ function createWindow() {
   mainWindow.on('closed', () => {
     mainWindow = null;
   });
+
 }
 
 app.on('ready', createWindow);

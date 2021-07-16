@@ -8,16 +8,16 @@ import { CartItem, Transaction } from '../models/transaction';
 export class DatabaseAdapter {
   private db: JsonDB;
   constructor() {
-    this.db = new JsonDB(new Config('kiosk.json', true, false));
+    this.db = new JsonDB(new Config('kiosk.json', true, true));
   }
 
   // Articles
   getArticles(): Article[] {
-    return this.db.getData('/articles');
+    return this.getOrElse('/articles', []);
   }
 
   addArticle(article: Article): Article {
-    const id = this.db.getData('/nextArticleID');
+    const id = this.getOrElse('/nextArticleID', 0);
     article.id = id;
     article.disabled = false;
     this.db.push('/articles[]', article, true);
@@ -40,11 +40,11 @@ export class DatabaseAdapter {
   // Customers
 
   getCustomers(): Customer[] {
-    return this.db.getData('/customers');
+    return this.getOrElse('/customers', []);
   }
 
   addCustomer(customer: Customer): Customer {
-    const id = this.db.getData('/nextCustomerID');
+    const id = this.getOrElse('/nextCustomerID', 0);
     customer.id = id;
     customer.transactions = [];
     this.db.push('/customers[]', customer, true);
@@ -62,7 +62,7 @@ export class DatabaseAdapter {
   }
 
   addTransaction(customerId: number, cart: CartItem[], deposit: number, time: Date): Transaction {
-    const id = this.db.getData('/nextTransactionID');
+    const id = this.getOrElse('/nextTransactionID', 0);
     const action: Transaction = { id, cart, deposit, time };
 
     const customers = this.getCustomers();
@@ -71,5 +71,13 @@ export class DatabaseAdapter {
     this.db.push(`/customers[${index}]/transactions[]`, action, true);
     this.db.push('/nextTransactionID', id + 1);
     return action;
+  }
+
+  reset() {
+    this.db.delete('/');
+  }
+
+  private getOrElse<T>(dataPath: string, orElse: T): T {
+    return this.db.exists(dataPath) ? this.db.getData(dataPath) : orElse;
   }
 }
