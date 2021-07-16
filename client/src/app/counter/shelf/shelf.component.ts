@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Article } from 'src/app/models/Article';
 
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 
 import { CartService } from 'src/app/shared/cart.service';
 import { ArticleService } from 'src/app/shared/article.service';
@@ -25,7 +25,7 @@ export class ShelfComponent {
 
       return Array.from(categories).map((cat) => ({
         title: cat,
-        articles: articles.filter((article) => article.category === cat),
+        articles: articles.filter((article) => article.category === cat && !article.disabled),
       }));
     })
   );

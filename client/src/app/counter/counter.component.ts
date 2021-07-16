@@ -6,7 +6,7 @@ import { CustomerService } from '../shared/customer.service';
 import { CartService } from '../shared/cart.service';
 import { Customer } from '../models/Customer';
 import { ArticleService } from '../shared/article.service';
-import { Subject } from 'rxjs';
+import { combineLatest, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-counter',
@@ -35,6 +35,10 @@ export class CounterComponent {
   credit$ = this.selectedCustomer$.pipe(
     map(customer => customer ? this.customerService.calculateCredit(customer) : 0)
   );
+
+  overdrawn$ = combineLatest([this.cartSum$, this.credit$]).pipe(
+    map(([cart, credit]: [number, number]) => credit < cart)
+  )
 
 
   clearEventSubjet: Subject<void> = new Subject<void>();
