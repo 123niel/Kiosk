@@ -51,8 +51,10 @@ export class ArticleTableComponent implements OnInit {
     this.dialog
       .open(NewArticleDialogComponent)
       .afterClosed()
-      .subscribe(({ name, category, price }) =>
-        this.articleService.addArticle(name, category, price)
+      .subscribe(({ name, category, price }) => {
+        const cents = parseFloat((price as string).replace(",", ".")) * 100
+        this.articleService.addArticle(name, category, Math.floor(cents))
+      }
       );
   }
 }

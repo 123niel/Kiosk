@@ -1,5 +1,11 @@
 <h1 mat-dialog-title>{{ data.firstname + ' ' + data.lastname }}</h1>
 <div mat-dialog-content>
+
+  <div *ngIf="details && details !== ''">
+    <h3>Details</h3>
+    <p style="white-space: pre">{{details}} </p>
+  </div>
+  <h3>Transaktionen</h3>
   <table mat-table [dataSource]="data.transactions">
     <ng-container matColumnDef="time">
       <th mat-header-cell *matHeaderCellDef>Zeit</th>

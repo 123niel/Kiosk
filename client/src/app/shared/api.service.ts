@@ -25,10 +25,10 @@ export class ApiService {
     return this.http.get<Customer>(this.apiUrl + '/customer/' + id);
   }
 
-  addCustomer(firstname, lastname): Observable<Customer> {
+  addCustomer(firstname, lastname, details, credit): Observable<Customer> {
     return this.http.post<Customer>(
       this.apiUrl + '/customer',
-      { firstname, lastname },
+      { firstname, lastname, details, credit },
       { headers: this.headers }
     );
   }

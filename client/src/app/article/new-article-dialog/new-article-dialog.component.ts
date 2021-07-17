@@ -7,14 +7,14 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./new-article-dialog.component.scss'],
 })
 export class NewArticleDialogComponent implements OnInit {
-  data: { name: string; category: string; price: number } = {
+  data: { name: string; category: string; price: string } = {
     name: '',
     category: '',
-    price: null,
+    price: '',
   };
-  constructor(public dialogRef: MatDialogRef<NewArticleDialogComponent>) {}
+  constructor(public dialogRef: MatDialogRef<NewArticleDialogComponent>) { }
   close() {
     this.dialogRef.close();
   }
-  ngOnInit() {}
+  ngOnInit() { }
 }

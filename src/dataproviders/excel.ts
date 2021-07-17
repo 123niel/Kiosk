@@ -2,8 +2,6 @@ import xlsx from 'node-xlsx';
 import { promises as fs } from 'fs';
 import { DatabaseAdapter } from './database-adapter';
 import { Article } from '../models/article';
-import { shell } from 'electron';
-
 
 export class ExcelAdapter {
     private dbAdapter: DatabaseAdapter;
@@ -15,16 +13,17 @@ export class ExcelAdapter {
     async save() {
 
         const customers = [
-            ['First Name', 'Last Name', 'Credit'],
+            ['First Name', 'Last Name', 'Details', 'Credit'],
             ...(this.dbAdapter.getCustomers()).map(customer => ([
                 customer.firstname,
                 customer.lastname,
+                customer.details,
                 customer.transactions.reduce((sum, transaction) => sum
                     + transaction.deposit
                     - transaction.cart.reduce((cartSum, item) => cartSum
                         + (item.article.price * item.quantity)
                         , 0)
-                    , 0)
+                    , 0),
             ]))
         ];
 
@@ -48,18 +47,23 @@ export class ExcelAdapter {
 
         this.dbAdapter.reset();
 
-        const customers = data.find(sheet => sheet.name === 'Customers')?.data.slice(1).filter(row => row.length > 1 && row.length < 4).map(row => {
+        const customers = data.find(sheet => sheet.name === 'Customers')?.data.slice(1).filter(row => row.length > 2 && row.length < 5).map(row => {
             if (typeof row[0] !== 'string') throw new Error(row[0] + ' is not a valid first name');
+            const firstname = row[0] as string;
             if (typeof row[1] !== 'string') throw new Error(row[1] + ' is not a valid last name');
-            if (row.length < 3 || !row[2]) {
-                return { firstname: row[0] as string, lastname: row[1] as string, credit: 0 };
+            const lastname = row[1] as string;
+            let credit = 0;
+            if (row.length > 3) {
+                credit = row[3] as number;
             }
-            return { firstname: row[0] as string, lastname: row[1] as string, credit: row[2] as number };
+            const details = row[2] as string;
+
+            return { firstname, lastname, details, credit };
         });
 
         if (customers) {
-            customers.forEach(({ firstname, lastname, credit }) => {
-                const { id } = this.dbAdapter.addCustomer({ firstname, lastname, id: 0, transactions: [] });
+            customers.forEach(({ firstname, lastname, details, credit }) => {
+                const { id } = this.dbAdapter.addCustomer({ firstname, lastname, id: 0, transactions: [], details });
                 if (credit !== 0) {
                     this.dbAdapter.addTransaction(id, [], credit, new Date());
                 }
@@ -81,6 +85,6 @@ export class ExcelAdapter {
             });
         }
 
-        return { imported: { customers: customers?.length, articles: articles?.length } }
+        return { imported: { customers: customers?.length, articles: articles?.length } };
     }
 }

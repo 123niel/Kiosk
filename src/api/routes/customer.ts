@@ -15,6 +15,9 @@ export const customerRouter = (db: DatabaseAdapter) => {
   // Add new
   router.post('/', catchAsync(async (req: Request, res: Response) => {
     const customer = db.addCustomer(req.body);
+    if (req.body.credit !== 0) {
+      db.addTransaction(customer.id, [], req.body.credit, new Date());
+    }
     res.json(customer);
   }));
 

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { last } from 'rxjs/operators';
 
 @Component({
   selector: 'app-new-customer-dialog',
@@ -7,13 +8,23 @@ import { MatDialogRef } from '@angular/material/dialog';
   templateUrl: './new-customer-dialog.component.html',
 })
 export class NewCustomerDialogComponent implements OnInit {
-  names: string;
+  data: {
+    firstname: string,
+    lastname: string,
+    details: string,
+    credit: string
+  } = {
+      firstname: '',
+      lastname: '',
+      details: '',
+      credit: ''
+    }
 
-  constructor(public dialogRef: MatDialogRef<NewCustomerDialogComponent>) {}
+  constructor(public dialogRef: MatDialogRef<NewCustomerDialogComponent>) { }
 
   close() {
     this.dialogRef.close();
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 }

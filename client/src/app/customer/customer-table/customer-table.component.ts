@@ -36,7 +36,8 @@ export class CustomerTableComponent {
         this.showDetails(
           customer.firstname,
           customer.lastname,
-          customer.transactions
+          customer.transactions,
+          customer.details
         ),
     })))
   );
@@ -54,25 +55,19 @@ export class CustomerTableComponent {
   }
 
   openNewDialog(): void {
-    const dialogRef = this.dialog.open(NewCustomerDialogComponent);
-    dialogRef.afterClosed().pipe(
-      map(result =>
-        (result as string).split(',').map(name => {
-          const nameParts = name.trim().split(' ').map(e => e.trim());
-          return { lastname: nameParts.pop(), firstname: nameParts.join(' ') };
-        })
-      ),
-    ).subscribe(names => names
-      .filter(({ lastname, firstname }) => lastname !== '' && firstname !== '')
-      .forEach(({ lastname, firstname }) =>
-        this.customerService.addCustomer(firstname, lastname)
+    this.dialog.open(NewCustomerDialogComponent)
+      .afterClosed()
+      .subscribe(({ firstname, lastname, details, credit }) => {
+        const cents = parseFloat((credit as string).replace(",", ".")) * 100
+        this.customerService.addCustomer(firstname, lastname, details, cents || 0)
+      }
       )
-    );
+
   }
 
-  showDetails(firstname, lastname, transactions) {
+  showDetails(firstname, lastname, transactions, details) {
     this.dialog.open(CustomerDetailDialogComponent, {
-      data: { firstname, lastname, transactions },
+      data: { firstname, lastname, transactions, details },
     });
   }
 }

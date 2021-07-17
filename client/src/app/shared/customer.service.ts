@@ -24,8 +24,8 @@ export class CustomerService {
     );
   }
 
-  addCustomer(firstname: string, lastname: string) {
-    this.apiService.addCustomer(firstname, lastname)
+  addCustomer(firstname: string, lastname: string, details: string, credit: number) {
+    this.apiService.addCustomer(firstname, lastname, details, credit)
       .subscribe(customer => {
         const customers = this.customersSubject.getValue();
         customers.push(customer);

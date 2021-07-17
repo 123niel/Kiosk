@@ -18,6 +18,8 @@ export class CustomerDetailDialogComponent implements OnInit {
     @Inject(MAT_DIALOG_DATA) public data
   ) { }
 
+  details = this.data.details;
+
   close() {
     this.dialogRef.close();
   }
@@ -36,7 +38,7 @@ export class CustomerDetailDialogComponent implements OnInit {
           item.article.price
         )})`
     )
-    .join('\n');
+      .join('\n');
   }
 
   transactionSum(transaction: Transaction) {
