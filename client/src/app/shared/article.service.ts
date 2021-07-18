@@ -30,11 +30,12 @@ export class ArticleService {
 
   toggle(article: Article) {
     this.apiService.toggleArticle(article.id, !article.disabled)
-      .subscribe(article => {
+      .subscribe(a => {
         const oldArticles = this.articlesSubject.getValue();
 
-        const newArticles = oldArticles.filter(a => a.id !== article.id);
-        newArticles.push(article);
+        const newArticles = [...oldArticles];
+
+        newArticles[a.id] = a
 
         this.articlesSubject.next(newArticles);
       });

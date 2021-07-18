@@ -32,7 +32,7 @@ export class DatabaseAdapter {
   disableArticle(id: number, disabled: boolean): Article {
     const article = this.getArticleByID(id);
     article.disabled = disabled;
-    const index = this.db.getIndex('/articles', `${article.id}`);
+    const index = this.db.getIndex('/articles', article.id);
     this.db.push(`/articles[${index}]`, article, true);
     return article;
   }
