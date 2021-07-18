@@ -19,7 +19,7 @@ export class DatabaseAdapter {
   addArticle(article: Article): Article {
     const id = this.getOrElse('/nextArticleID', 0);
     article.id = id;
-    article.disabled = false;
+    article.disabled = article.disabled || false;
     this.db.push('/articles[]', article, true);
     this.db.push('/nextArticleID', id + 1);
     return article;

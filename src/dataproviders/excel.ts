@@ -39,6 +39,7 @@ export class ExcelAdapter {
 
         const buffer = xlsx.build([{ name: 'Customers', data: customers }, { name: 'Articles', data: articles }]);
         await fs.writeFile('kiosk.xlsx', Buffer.from(buffer));
+        return { success: true };
     }
 
     async load(): Promise<any> {

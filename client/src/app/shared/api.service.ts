@@ -78,7 +78,7 @@ export class ApiService {
     );
   }
 
-  export() {
+  export(): Observable<any> {
     return this.http.get(this.apiUrl + '/excel/export')
   }
 

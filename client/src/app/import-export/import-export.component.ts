@@ -21,7 +21,12 @@ export class ImportExportComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  export() { this.apiService.export().subscribe() }
+  export() {
+    this.apiService.export().subscribe(
+      ({ success }) => this.snackBar.open('erfolgreich Exportiert')._dismissAfter(2000),
+      (error) => this.snackBar.open('Export fehlgeschlagen')._dismissAfter(2000)
+    );
+  }
 
   import() {
     this.apiService.import().subscribe(({ imported }) => {

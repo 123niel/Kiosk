@@ -10,7 +10,7 @@ export const excelRouter = (db: DatabaseAdapter) => {
 
   router.get('/export', catchAsync(async (req: Request, res: Response) => {
     const result = await excelAdapter.save();
-    res.send();
+    res.send(result);
   }));
 
   router.get('/import', catchAsync(async (req: Request, res: Response) => {
