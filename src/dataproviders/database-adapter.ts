@@ -37,6 +37,15 @@ export class DatabaseAdapter {
     return article;
   }
 
+  updateArticle(id: number, name: string, category: string): Article {
+    const article = this.getArticleByID(id);
+    article.name = name;
+    article.category = category;
+    const index = this.db.getIndex('/articles', article.id);
+    this.db.push(`/articles[${index}]`, article, true)
+    return article
+  }
+
   // Customers
 
   getCustomers(): Customer[] {

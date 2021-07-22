@@ -8,6 +8,8 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormControl } from '@angular/forms';
+import { EditArticleDialogComponent } from '../edit-article-dialog/edit-article-dialog.component';
+import { Article } from 'src/app/models/Article';
 
 interface TableDataModel {
   index: number;
@@ -17,6 +19,7 @@ interface TableDataModel {
   price: number;
   disabled: boolean;
   toggle: () => void;
+  edit: () => void;
 }
 
 
@@ -26,7 +29,7 @@ interface TableDataModel {
   styleUrls: ['./article-table.component.scss'],
 })
 export class ArticleTableComponent implements OnInit {
-  displayedCols = ['name', 'category', 'price', 'toggle'];
+  displayedCols = ['name', 'category', 'price', 'toggle', 'edit'];
   tableData: MatTableDataSource<TableDataModel> = new MatTableDataSource();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -48,7 +51,8 @@ export class ArticleTableComponent implements OnInit {
           id: article.id,
           price: article.price,
           disabled: article.disabled,
-          toggle: () => this.articleService.toggle(article)
+          toggle: () => this.articleService.toggle(article),
+          edit: () => this.openEditDialog(article)
         }))
       )
     ).subscribe(data => {
@@ -69,5 +73,16 @@ export class ArticleTableComponent implements OnInit {
         this.articleService.addArticle(name, category, Math.floor(cents))
       }
       );
+  }
+
+  openEditDialog(article: Article) {
+    this.dialog
+      .open(EditArticleDialogComponent, {
+        data: article
+      })
+      .afterClosed()
+      .subscribe(({ id, name, category }) => {
+        this.articleService.editArticle(id, name, category)
+      })
   }
 }

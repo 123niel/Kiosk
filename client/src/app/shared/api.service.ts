@@ -45,8 +45,8 @@ export class ApiService {
     return this.http.get<Article[]>(this.apiUrl + '/article');
   }
 
-  postArticle(body): Observable<Article> {
-    return this.http.post<Article>(this.apiUrl + '/article', body, {
+  updateArticle(id, name, category): Observable<Article> {
+    return this.http.patch<Article>(this.apiUrl + '/article/' + id, { name, category }, {
       headers: this.headers,
     });
   }

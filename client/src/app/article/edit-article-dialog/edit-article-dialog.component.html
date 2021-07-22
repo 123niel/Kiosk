@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>Artikel bearbeiten</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <mat-label>Name</mat-label>
+        <input matInput [(ngModel)]="data.name" autocomplete="off" />
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Kategorie</mat-label>
+        <input matInput [(ngModel)]="data.category" autocomplete="off" />
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Preis</mat-label>
+        <input matInput disabled value="{{data.price}}" />
+        <span matSuffix>€&nbsp;</span>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="close()">Abbrechen</button>
+    <button mat-button [mat-dialog-close]="data">Ok</button>
+</div>

@@ -27,5 +27,11 @@ export const articleRouter = (db: DatabaseAdapter) => {
     res.json(article);
   }));
 
+  router.patch('/:id', catchAsync(async (req: Request, res: Response) => {
+    const { name, category } = req.body;
+    const article = db.updateArticle(parseInt(req.params.id, 10), name, category);
+    res.json(article)
+  }))
+
   return router;
 };

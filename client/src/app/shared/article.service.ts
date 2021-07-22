@@ -40,4 +40,15 @@ export class ArticleService {
         this.articlesSubject.next(newArticles);
       });
   }
+
+  editArticle(id: string, name: string, category: string) {
+    this.apiService.updateArticle(id, name, category)
+      .subscribe(a => {
+        console.log(a);
+        const oldArticles = this.articlesSubject.getValue();
+        const newArticles = [...oldArticles];
+        newArticles[a.id] = a;
+        this.articlesSubject.next(newArticles);
+      })
+  }
 }
