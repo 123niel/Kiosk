@@ -13,10 +13,11 @@ export class ExcelAdapter {
     async save() {
 
         const customers = [
-            ['First Name', 'Last Name', 'Details', 'Credit'],
+            ['First Name', 'Last Name', 'Group', 'Details', 'Credit'],
             ...(this.dbAdapter.getCustomers()).map(customer => ([
                 customer.firstname,
                 customer.lastname,
+                customer.group,
                 customer.details,
                 customer.transactions.reduce((sum, transaction) => sum
                     + transaction.deposit
@@ -48,36 +49,36 @@ export class ExcelAdapter {
 
         this.dbAdapter.reset();
 
-        const customers = data.find(sheet => sheet.name === 'Customers')?.data.slice(1).filter(row => row.length > 2 && row.length < 5).map(row => {
-            if (typeof row[0] !== 'string') throw new Error(row[0] + ' is not a valid first name');
-            const firstname = row[0] as string;
-            if (typeof row[1] !== 'string') throw new Error(row[1] + ' is not a valid last name');
-            const lastname = row[1] as string;
-            let credit = 0;
-            if (row.length > 3) {
-                credit = row[3] as number;
-            }
-            const details = row[2] as string;
+        // firstname lastname group details credit
+        const customers = data.find(sheet => sheet.name === 'Customers')?.data.slice(1).filter(row => row.length === 5).map(row => {
 
-            return { firstname, lastname, details, credit };
+            const [firstname, lastname, group, details, credit] = row;
+
+            if (typeof firstname !== 'string' || (firstname as string).length < 1) throw new Error(firstname + ' is not a valid first name');
+
+            if (typeof lastname !== 'string' || (lastname as string).length < 1) throw new Error(lastname + ' is not a valid last name');
+
+
+            return { firstname, lastname, group: group as string, details: details as string, credit: parseInt(credit as string, 10) || 0 };
         });
 
         if (customers) {
-            customers.forEach(({ firstname, lastname, details, credit }) => {
-                const { id } = this.dbAdapter.addCustomer({ firstname, lastname, id: 0, transactions: [], details });
+            customers.forEach(({ firstname, lastname, group, details, credit }) => {
+                const { id } = this.dbAdapter.addCustomer({ firstname, lastname, id: 0, transactions: [], details, group });
                 if (credit !== 0) {
-                    this.dbAdapter.addTransaction(id, [], credit, new Date());
+                    this.dbAdapter.addTransaction(id, [], credit as number, new Date());
                 }
             });
         }
 
 
         const articles = data.find(sheet => sheet.name === 'Articles')?.data.slice(1).filter(row => row.length === 4).map(row => {
-            if (typeof row[0] !== 'string') throw new Error(row[0] + ' is not a valid article name');
-            if (typeof row[1] !== 'number') throw new Error(row[0] + ' is not a valid price');
-            if (typeof row[2] !== 'string') throw new Error(row[0] + ' is not a valid category');
-            if (typeof row[3] !== 'boolean') throw new Error(row[0] + ' is not a valid boolean value');
-            return { name: row[0], price: row[1], category: row[2], disabled: row[3] };
+            const [name, price, category, disabled] = row;
+            if (typeof name !== 'string' || !name) throw new Error(name + ' is not a valid article name');
+            if (typeof price !== 'number') throw new Error(price + ' is not a valid price');
+            if (typeof category !== 'string') throw new Error(category + ' is not a valid category');
+            if (typeof disabled !== 'boolean') throw new Error(disabled + ' is not a valid boolean value');
+            return { name, price, category, disabled };
         });
 
         if (articles) {

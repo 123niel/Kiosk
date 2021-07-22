@@ -5,5 +5,6 @@ export interface Customer {
   firstname: string;
   lastname: string;
   details: string;
+  group: string;
   transactions: Transaction[];
 }

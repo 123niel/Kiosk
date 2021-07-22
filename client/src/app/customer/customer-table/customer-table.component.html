@@ -1,14 +1,24 @@
 <h1>Teilnehmer</h1>
 
-<table mat-table [dataSource]="data$" class="mat-elevation-z4">
+<mat-form-field>
+  <mat-label>Filter</mat-label>
+  <input matInput (keyup)="applyFilter($event)" />
+</mat-form-field>
+
+<table mat-table matSort [dataSource]="tableData" class="mat-elevation-z4">
   <ng-container matColumnDef="firstname">
-    <th mat-header-cell *matHeaderCellDef>Vorname</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Vorname</th>
     <td mat-cell *matCellDef="let element">{{ element.firstname }}</td>
   </ng-container>
 
   <ng-container matColumnDef="lastname">
-    <th mat-header-cell *matHeaderCellDef>Nachname</th>
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Nachname</th>
     <td mat-cell *matCellDef="let element">{{ element.lastname }}</td>
+  </ng-container>
+
+  <ng-container matColumnDef="group">
+    <th mat-header-cell *matHeaderCellDef mat-sort-header>Zelt</th>
+    <td mat-cell *matCellDef="let element">{{ element.group }}</td>
   </ng-container>
 
   <ng-container matColumnDef="credit">

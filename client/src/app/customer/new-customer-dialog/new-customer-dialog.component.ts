@@ -12,12 +12,14 @@ export class NewCustomerDialogComponent implements OnInit {
     firstname: string,
     lastname: string,
     details: string,
-    credit: string
+    credit: string,
+    group: string,
   } = {
       firstname: '',
       lastname: '',
       details: '',
-      credit: ''
+      credit: '',
+      group: ''
     }
 
   constructor(public dialogRef: MatDialogRef<NewCustomerDialogComponent>) { }
