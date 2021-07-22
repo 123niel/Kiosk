@@ -2,7 +2,10 @@
 
 <mat-form-field>
   <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" />
+  <input matInput [formControl]="filter" />
+  <button *ngIf="filter.value" matSuffix mat-icon-button aria-label="Clear" (click)="filter.setValue('')">
+    <mat-icon>close</mat-icon>
+  </button>
 </mat-form-field>
 
 <table mat-table matSort [dataSource]="tableData" class="mat-elevation-z4">

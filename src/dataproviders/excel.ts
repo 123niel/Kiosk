@@ -13,7 +13,7 @@ export class ExcelAdapter {
     async save() {
 
         const customers = [
-            ['First Name', 'Last Name', 'Group', 'Details', 'Credit'],
+            ['First Name', 'Last Name', 'Group', 'Details', 'Credit (ct.)'],
             ...(this.dbAdapter.getCustomers()).map(customer => ([
                 customer.firstname,
                 customer.lastname,
@@ -29,7 +29,7 @@ export class ExcelAdapter {
         ];
 
         const articles = [
-            ['Name', 'Price', 'Category', 'Disabled'],
+            ['Name', 'Price', 'Category (ct.)', 'Disabled'],
             ...(this.dbAdapter.getArticles()).map(article => ([
                 article.name,
                 article.price,

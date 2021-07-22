@@ -11,6 +11,7 @@ import { CustomerService } from 'src/app/shared/customer.service';
 import { Transaction } from 'src/app/models/Transaction';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
+import { FormControl } from '@angular/forms';
 
 interface TableDataModel {
   firstname: string;
@@ -33,6 +34,8 @@ export class CustomerTableComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+  filter = new FormControl('');
 
   constructor(
     private dialog: MatDialog,
@@ -61,7 +64,9 @@ export class CustomerTableComponent implements OnInit {
       this.tableData.data = data;
       this.tableData.paginator = this.paginator;
       this.tableData.sort = this.sort;
-    })
+    });
+
+    this.filter.valueChanges.subscribe(value => this.tableData.filter = value.trim().toLowerCase())
   }
 
   openDeposit(customer: Customer) {
@@ -91,10 +96,5 @@ export class CustomerTableComponent implements OnInit {
     this.dialog.open(CustomerDetailDialogComponent, {
       data: { firstname, lastname, transactions, details, group },
     });
-  }
-
-  applyFilter(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    this.tableData.filter = filterValue.trim().toLowerCase();
   }
 }

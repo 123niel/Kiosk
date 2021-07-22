@@ -1,10 +1,24 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { NewArticleDialogComponent } from '../new-article-dialog/new-article-dialog.component';
 import { ArticleService } from 'src/app/shared/article.service';
-import { map, startWith, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { FormControl } from '@angular/forms';
-import { Observable, of, scheduled } from 'rxjs';
+
+interface TableDataModel {
+  index: number;
+  name: string;
+  category: string;
+  id: string;
+  price: number;
+  disabled: boolean;
+  toggle: () => void;
+}
+
 
 @Component({
   selector: 'app-article-table',
@@ -13,16 +27,19 @@ import { Observable, of, scheduled } from 'rxjs';
 })
 export class ArticleTableComponent implements OnInit {
   displayedCols = ['name', 'category', 'price', 'toggle'];
-  data$: Observable<{
-    index: number, name: string, category: string, id: string, price: number, disabled: boolean, toggle: () => void
-  }[]>;
+  tableData: MatTableDataSource<TableDataModel> = new MatTableDataSource();
+
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+
+  filter = new FormControl('');
 
   constructor(
     private articleService: ArticleService, private dialog: MatDialog
   ) { }
 
   ngOnInit() {
-    this.data$ = this.articleService.articles$.pipe(
+    this.articleService.articles$.pipe(
       map(articles => articles
         .map((article, index) => ({
           index,
@@ -34,7 +51,13 @@ export class ArticleTableComponent implements OnInit {
           toggle: () => this.articleService.toggle(article)
         }))
       )
-    );
+    ).subscribe(data => {
+      this.tableData.data = data;
+      this.tableData.paginator = this.paginator;
+      this.tableData.sort = this.sort;
+    });
+
+    this.filter.valueChanges.subscribe(value => this.tableData.filter = value.trim().toLowerCase())
   }
 
   openNewDialog() {
