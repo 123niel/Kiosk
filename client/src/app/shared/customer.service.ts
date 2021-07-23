@@ -8,7 +8,6 @@ import { ApiService } from './api.service';
   providedIn: 'root'
 })
 export class CustomerService {
-
   private customersSubject = new BehaviorSubject<Customer[]>([])
   private selectedSubject = new BehaviorSubject<Customer>(null);
   customers$ = this.customersSubject.asObservable();
@@ -49,6 +48,17 @@ export class CustomerService {
 
   clearSelectedCustomer() {
     this.selectedSubject.next(null);
+  }
+
+  editCustomer(id: string, firstname: string, lastname: string, details: string, group: string) {
+    this.apiService.updateCustomer(id, firstname, lastname, details, group)
+      .subscribe(c => {
+        const oldCustomers = this.customersSubject.getValue();
+        const newCustomers = [...oldCustomers];
+
+        newCustomers[c.id] = c;
+        this.customersSubject.next(newCustomers);
+      })
   }
 
   calculateCredit(customer: Customer) {

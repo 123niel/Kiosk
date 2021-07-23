@@ -33,6 +33,14 @@ export class ApiService {
     );
   }
 
+  updateCustomer(id, firstname, lastname, details, group) {
+    return this.http.patch<Customer>(
+      this.apiUrl + '/customer/' + id,
+      { firstname, lastname, details, group },
+      { headers: this.headers }
+    )
+  }
+
   addArticle(name, category, price): Observable<Article> {
     return this.http.post<Article>(
       this.apiUrl + '/article',

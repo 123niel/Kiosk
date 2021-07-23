@@ -12,6 +12,7 @@ import { Transaction } from 'src/app/models/Transaction';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { FormControl } from '@angular/forms';
+import { EditCustomerDialogComponent } from 'src/app/customer/edit-customer-dialog/edit-customer-dialog.component';
 
 interface TableDataModel {
   firstname: string;
@@ -29,7 +30,7 @@ interface TableDataModel {
   styleUrls: ['./customer-table.component.scss'],
 })
 export class CustomerTableComponent implements OnInit {
-  displayedCols = ['firstname', 'lastname', 'group', 'credit', 'deposit', 'details'];
+  displayedCols = ['firstname', 'lastname', 'group', 'credit', 'deposit', 'details', 'edit'];
   tableData: MatTableDataSource<TableDataModel> = new MatTableDataSource();
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -59,6 +60,7 @@ export class CustomerTableComponent implements OnInit {
             customer.details,
             customer.group
           ),
+        edit: () => this.openEditDialog({ ...customer })
       })))
     ).subscribe(data => {
       this.tableData.data = data;
@@ -84,17 +86,30 @@ export class CustomerTableComponent implements OnInit {
   openNewDialog(): void {
     this.dialog.open(NewCustomerDialogComponent)
       .afterClosed()
-      .subscribe(({ firstname, lastname, group, details, credit }) => {
-        const cents = parseFloat((credit as string).replace(",", ".")) * 100
-        this.customerService.addCustomer(firstname, lastname, group, details, cents || 0)
-      }
-      )
-
+      .subscribe((data: { firstname: string, lastname: string, group: string, details: string, credit: string }) => {
+        if (data !== undefined) {
+          const cents = parseFloat(data.credit.replace(",", ".")) * 100
+          this.customerService.addCustomer(data.firstname, data.lastname, data.group, data.details, cents || 0)
+        }
+      });
   }
 
   showDetails(firstname, lastname, transactions, details, group) {
     this.dialog.open(CustomerDetailDialogComponent, {
       data: { firstname, lastname, transactions, details, group },
     });
+  }
+
+  openEditDialog(customer: Customer) {
+    this.dialog
+      .open(EditCustomerDialogComponent, {
+        data: { ...customer, credit: this.customerService.calculateCredit(customer) }
+      })
+      .afterClosed()
+      .subscribe((data: { id: string, firstname: string, lastname: string, group: string, details: string }) => {
+        if (data !== undefined) {
+          this.customerService.editCustomer(data.id, data.firstname, data.lastname, data.details, data.group)
+        }
+      })
   }
 }

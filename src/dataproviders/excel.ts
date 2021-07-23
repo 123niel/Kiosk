@@ -29,12 +29,11 @@ export class ExcelAdapter {
         ];
 
         const articles = [
-            ['Name', 'Price', 'Category (ct.)', 'Disabled'],
+            ['Name', 'Price (ct.)', 'Category'],
             ...(this.dbAdapter.getArticles()).map(article => ([
                 article.name,
                 article.price,
-                article.category,
-                article.disabled
+                article.category
             ]))
         ];
 
@@ -72,13 +71,12 @@ export class ExcelAdapter {
         }
 
 
-        const articles = data.find(sheet => sheet.name === 'Articles')?.data.slice(1).filter(row => row.length === 4).map(row => {
-            const [name, price, category, disabled] = row;
+        const articles = data.find(sheet => sheet.name === 'Articles')?.data.slice(1).filter(row => row.length === 3).map(row => {
+            const [name, price, category] = row;
             if (typeof name !== 'string' || !name) throw new Error(name + ' is not a valid article name');
             if (typeof price !== 'number') throw new Error(price + ' is not a valid price');
             if (typeof category !== 'string') throw new Error(category + ' is not a valid category');
-            if (typeof disabled !== 'boolean') throw new Error(disabled + ' is not a valid boolean value');
-            return { name, price, category, disabled };
+            return { name, price, category, disabled: false };
         });
 
         if (articles) {

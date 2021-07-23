@@ -10,17 +10,11 @@ import { NewArticleDialogComponent } from '../new-article-dialog/new-article-dia
 })
 export class EditArticleDialogComponent implements OnInit {
 
-  // data: Article = {
-  //   name: '',
-  //   category: '',
-  //   price: 0,
-  //   id: '0',
-  //   disabled: false
-  // };
+  constructor(
+    public dialogRef: MatDialogRef<EditArticleDialogComponent>,
+    @Inject(MAT_DIALOG_DATA) public data: Article
+  ) { }
 
-  constructor(public dialogRef: MatDialogRef<NewArticleDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: Article) {
-    console.log(this);
-  }
   close() {
     this.dialogRef.close();
   }

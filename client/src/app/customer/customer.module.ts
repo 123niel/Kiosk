@@ -20,4 +20,4 @@ import { NewCustomerDialogComponent } from './new-customer-dialog/new-customer-d
     CustomerDetailDialogComponent,
   ],
 })
-export class CustomerModule {}
+export class CustomerModule { }

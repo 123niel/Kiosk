@@ -65,6 +65,18 @@ export class DatabaseAdapter {
     return this.getCustomers().filter(c => c.id === id)[0];
   }
 
+  updateCustomer(id: number, firstname: string, lastname: string, group: string, details: string): Customer {
+    const customer = this.getCustomerByID(id);
+    customer.firstname = firstname;
+    customer.lastname = lastname;
+    customer.details = details;
+    customer.group = group;
+
+    const index = this.db.getIndex('/customers', id);
+    this.db.push(`/customers[${index}]`, customer, true)
+    return customer;
+  }
+
   // Transactions
   getTransactions(): Transaction[] {
     return this.getCustomers().flatMap(c => c.transactions);

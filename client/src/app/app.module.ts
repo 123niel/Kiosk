@@ -11,12 +11,13 @@ import { CounterModule } from './counter/counter.module';
 import { CustomerModule } from './customer/customer.module';
 import { MaterialModule } from './shared/material.module';
 import { ImportExportComponent } from './import-export/import-export.component';
+import { EditCustomerDialogComponent } from './customer/edit-customer-dialog/edit-customer-dialog.component';
 
 
 registerLocaleData(localeDe);
 
 @NgModule({
-  declarations: [AppComponent, ImportExportComponent],
+  declarations: [AppComponent, ImportExportComponent, EditCustomerDialogComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

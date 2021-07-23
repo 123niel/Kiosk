@@ -28,5 +28,12 @@ export const customerRouter = (db: DatabaseAdapter) => {
     res.json(customer);
   }));
 
+  router.patch('/:id', catchAsync(async (req: Request, res: Response) => {
+    const { firstname, lastname, details, group } = req.body;
+    const id = parseInt(req.params.id, 10);
+    const customer = db.updateCustomer(id, firstname, lastname, group, details);
+    res.json(customer);
+  }))
+
   return router;
 };
