@@ -5,7 +5,8 @@
 <div mat-dialog-content>
   <mat-form-field>
     <mat-label>Betrag</mat-label>
-    <input matInput [(ngModel)]="amount" autocomplete="off" />
+    <input matInput [(ngModel)]="amount" autocomplete="off" placeholder="1.00" />
+    <span matSuffix>€&nbsp;</span>
   </mat-form-field>
 </div>
 <div mat-dialog-actions>

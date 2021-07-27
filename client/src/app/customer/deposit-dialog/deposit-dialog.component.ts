@@ -5,6 +5,7 @@ import { Customer } from 'src/app/models/Customer';
 @Component({
   selector: 'app-deposit-dialog',
   templateUrl: './deposit-dialog.component.html',
+  styleUrls: ['./deposit-dialog.component.scss']
 })
 export class DepositDialogComponent implements OnInit {
   amount: number;
