@@ -11,6 +11,6 @@
       aria-label="clear">
       <mat-icon>close</mat-icon>
     </button>
-    <mat-hint *ngIf="customerCtrl.value">{{(selected$ | async).details}}</mat-hint>
+    <mat-hint *ngIf="selected$ | async">{{(selected$ | async).details}}</mat-hint>
   </mat-form-field>
 </div>
