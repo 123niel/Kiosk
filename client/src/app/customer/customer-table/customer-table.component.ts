@@ -78,8 +78,10 @@ export class CustomerTableComponent implements OnInit {
       })
       .afterClosed()
       .subscribe(amount => {
-        if (amount)
-          this.customerService.addTransaction(customer.id, [], amount * 100)
+        if (amount) {
+          const cents = Math.floor(parseFloat(amount.replace(",", ".")) * 100)
+          this.customerService.addTransaction(customer.id, [], cents)
+        }
       });
   }
 
@@ -88,7 +90,7 @@ export class CustomerTableComponent implements OnInit {
       .afterClosed()
       .subscribe((data: { firstname: string, lastname: string, group: string, details: string, credit: string }) => {
         if (data !== undefined) {
-          const cents = parseFloat(data.credit.replace(",", ".")) * 100
+          const cents = Math.floor(parseFloat(data.credit.replace(",", ".")) * 100)
           this.customerService.addCustomer(data.firstname, data.lastname, data.group, data.details, cents || 0)
         }
       });

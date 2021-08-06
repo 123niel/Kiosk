@@ -70,7 +70,7 @@ export class ArticleTableComponent implements OnInit {
       .afterClosed()
       .subscribe((data: { name: string, category: string, price: string }) => {
         if (data !== undefined) {
-          const cents = parseFloat(data.price.replace(",", ".")) * 100
+          const cents = Math.floor(parseFloat(data.price.replace(",", ".")) * 100)
           this.articleService.addArticle(data.name, data.category, Math.floor(cents))
         }
       }
