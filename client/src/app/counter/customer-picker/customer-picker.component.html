@@ -9,7 +9,7 @@
     </mat-autocomplete>
     <button *ngIf="customerCtrl.value" mat-button (click)="clearButtonClick()" matSuffix mat-icon-button
       aria-label="clear">
-      <mat-icon>close</mat-icon>
+      <img src="../../../assets/close_black_24dp.svg" alt="close">
     </button>
     <mat-hint *ngIf="selected$ | async">{{(selected$ | async).details}}</mat-hint>
   </mat-form-field>
